@@ -32,17 +32,19 @@ lightbox.addEventListener('click', ({ target }) => target === lightbox && lightb
 
 const track = document.querySelector('#video-track')
 const carousel = document.querySelector('.video-carousel')
+const arrows = carousel.querySelectorAll('.video-arrow')
 const updateArrows = () => {
-  carousel.querySelector('.previous').hidden = track.scrollLeft < 8
-  carousel.querySelector('.next').hidden = track.scrollLeft + track.clientWidth >= track.scrollWidth - 8
+  carousel.querySelector('.previous').disabled = track.scrollLeft < 8
+  carousel.querySelector('.next').disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 8
 }
-carousel.addEventListener('click', ({ target }) => {
-  if (!target.dataset.direction) return
-  track.scrollBy({ left: Number(target.dataset.direction) * Math.min(track.clientWidth * .8, 520), behavior: 'smooth' })
-})
+arrows.forEach(button => button.addEventListener('click', () => {
+  const card = track.querySelector('.video-card')
+  const gap = parseFloat(getComputedStyle(track).gap) || 0
+  track.scrollBy({ left: Number(button.dataset.direction) * (card.offsetWidth + gap), behavior: 'smooth' })
+}))
 track.addEventListener('scroll', updateArrows, { passive: true })
-addEventListener('resize', updateArrows)
-updateArrows()
+new ResizeObserver(updateArrows).observe(track)
+requestAnimationFrame(updateArrows)
 
 const observer = new IntersectionObserver(entries => entries.forEach(entry => {
   if (!entry.isIntersecting) return
@@ -51,6 +53,16 @@ const observer = new IntersectionObserver(entries => entries.forEach(entry => {
 }), { threshold: .12 })
 document.querySelectorAll('.section').forEach(section => observer.observe(section))
 animate('.reveal', { opacity: [0, 1], y: [24, 0], delay: stagger(110, { start: 250 }), duration: 900, ease: 'outExpo' })
+
+const heroPhotos = document.querySelectorAll('.hero-player')
+if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  let currentPhoto = 0
+  setInterval(() => {
+    heroPhotos[currentPhoto].classList.remove('is-active')
+    currentPhoto = (currentPhoto + 1) % heroPhotos.length
+    heroPhotos[currentPhoto].classList.add('is-active')
+  }, 5000)
+}
 
 const preloader = document.querySelector('#preloader')
 animate(preloader.querySelector('span'), { opacity: [0, 1], scale: [.65, 1], duration: 650, ease: 'outExpo' })
