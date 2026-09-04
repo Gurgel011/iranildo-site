@@ -276,11 +276,14 @@ blockquote {
   background: var(--green);
   transition: transform .35s cubic-bezier(.2, .8, .2, 1);
 }
-.timeline-item:hover { padding-left: 22px; color: var(--ink); }
-.timeline-item:hover::before { transform: scaleX(1); transform-origin: left; }
+.timeline-item:hover,
+.timeline-item.is-active { padding-left: 22px; color: var(--ink); }
+.timeline-item:hover::before,
+.timeline-item.is-active::before { transform: scaleX(1); transform-origin: left; }
 .timeline-item > span { color: #648078; font-size: 10px; }
 .timeline-item img { width: 42px; height: 42px; object-fit: contain; transition: transform .35s; }
-.timeline-item:hover img { transform: scale(1.25) rotate(-5deg); }
+.timeline-item:hover img,
+.timeline-item.is-active img { transform: scale(1.25) rotate(-5deg); }
 .timeline-item time { color: var(--green); font: 600 20px 'Barlow Condensed', sans-serif; }
 .timeline-item h3 {
   margin: 0;
@@ -290,7 +293,10 @@ blockquote {
 .timeline-item b { color: #79908a; font-size: 10px; }
 .timeline-item:hover time,
 .timeline-item:hover b,
-.timeline-item:hover > span { color: var(--ink); }
+.timeline-item:hover > span,
+.timeline-item.is-active time,
+.timeline-item.is-active b,
+.timeline-item.is-active > span { color: var(--ink); }
 
 .title-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
 .title-card { position: relative; height: 570px; overflow: hidden; background: #ddd; }
@@ -502,7 +508,7 @@ dialog button {
   .story-grid > img { height: 430px; }
   .story-copy .lead { font-size: 30px; }
   .story-copy p { font-size: 17px; }
-  .story-copy blockquote { font-size: 27px; }
+  .story-copy blockquote { padding-left: 14px; font-size: 27px; }
 
   .career-head,
   .titles-intro,
@@ -511,13 +517,15 @@ dialog button {
   .titles-intro p,
   .gallery-head p { margin-top: 25px; }
   .timeline-item { grid-template-columns: 28px 44px 75px 1fr 20px; }
-  .timeline-item:hover { padding-left: 8px; }
+  .timeline-item:hover,
+  .timeline-item.is-active { padding-left: 8px; }
   .timeline-item img { width: 34px; height: 34px; }
   .timeline-item h3 { font-size: 21px; }
 
   .title-cards { grid-template-columns: 1fr; }
   .title-card { height: 500px; }
-  .video-card { min-width: 86%; }
+  .video-track { padding-inline: 7%; }
+  .video-card { min-width: 86%; scroll-snap-align: center; }
   .video-card iframe { height: 220px; }
   .video-arrow { top: 95px; }
 

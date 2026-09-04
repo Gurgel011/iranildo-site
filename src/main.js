@@ -46,6 +46,13 @@ track.addEventListener('scroll', updateArrows, { passive: true })
 new ResizeObserver(updateArrows).observe(track)
 requestAnimationFrame(updateArrows)
 
+if (matchMedia('(max-width: 800px)').matches) {
+  const timelineObserver = new IntersectionObserver(entries => entries.forEach(entry => {
+    entry.target.classList.toggle('is-active', entry.isIntersecting)
+  }), { rootMargin: '-45% 0px -45% 0px' })
+  document.querySelectorAll('.timeline-item').forEach(item => timelineObserver.observe(item))
+}
+
 const observer = new IntersectionObserver(entries => entries.forEach(entry => {
   if (!entry.isIntersecting) return
   animate(entry.target.querySelectorAll('h2, .section-kicker, .timeline-item, .title-card, .gallery-item'), { opacity: [0, 1], y: [28, 0], delay: stagger(70), duration: 700, ease: 'outExpo' })
