@@ -55,3 +55,22 @@ Depois, confira no computador e no celular:
 - links de WhatsApp e Instagram.
 
 O projeto não possui backend, formulário ou coleta de dados. Fotografias, telefone e vídeos devem ter autorização do jogador antes da publicação.
+
+## Publicando o site
+
+**Já está no ar.** Hospedado na Netlify:
+
+- URL da Netlify: `iranildo-site.netlify.app`
+- Domínio próprio: `iranildo.com.br` (registrado no Registro.br, já conectado ao site na Netlify)
+- O domínio usa os servidores DNS da própria Netlify (nameservers `dns1-4.p06.nsone.net`), então qualquer registro DNS novo (subdomínio, e-mail, etc.) deve ser criado direto no painel da Netlify, não no Registro.br.
+- `www.iranildo.com.br` redireciona automaticamente para o domínio principal.
+- O certificado HTTPS é emitido automaticamente pela Netlify assim que o DNS propaga (pode levar de minutos a algumas horas).
+
+Pra publicar uma atualização depois de mexer no código:
+
+```bash
+npm run build
+npx netlify-cli deploy --prod --dir=dist
+```
+
+A pasta já está linkada ao site certo (arquivo `.netlify/state.json`, que fica de fora do git).
