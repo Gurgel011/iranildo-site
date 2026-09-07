@@ -21,10 +21,11 @@ O computador e o celular precisam estar na mesma rede.
 
 ## Onde mexer
 
-- `index.html`: textos, títulos e contato;
+- `index.html`: textos, títulos, contato e as tags do `<head>` (SEO, favicon, preview de link);
 - `src/main.js`: clubes, vídeos, galeria e interações;
 - `src/style.css`: aparência e adaptação para celular;
-- `public/assets`: fotos e escudos.
+- `public/assets`: fotos e escudos;
+- `public/favicon.svg`, `public/favicon.png`, `public/apple-touch-icon.png`: ícone do site (o número 4, camisa do Iranildo). Pra trocar, edite o SVG e regenere os PNGs no mesmo estilo.
 
 Os itens da carreira usam este formato em `src/main.js`:
 
@@ -39,6 +40,8 @@ Os vídeos precisam apenas do código do YouTube:
 ```js
 ['n2HgEVUm2vU', 'Jogadas e fundamentos']
 ```
+
+No celular, a timeline de carreira destaca sozinha o clube que está no centro da tela enquanto a pessoa rola a página (substitui o hover, que não existe no toque). É o `IntersectionObserver` perto do fim do `main.js`, ligado à classe `.timeline-item.is-active` no CSS. O carrossel de vídeos também foi ajustado pra centralizar o card ativo no celular (`scroll-snap-align: center` + respiro nas laterais da trilha).
 
 ## Antes de publicar
 
@@ -55,6 +58,12 @@ Depois, confira no computador e no celular:
 - links de WhatsApp e Instagram.
 
 O projeto não possui backend, formulário ou coleta de dados. Fotografias, telefone e vídeos devem ter autorização do jogador antes da publicação.
+
+## Preview de link (WhatsApp, Instagram, X)
+
+As tags de Open Graph e Twitter Card estão no `<head>` do `index.html`, apontando pra `public/assets/preview.jpg` (1200×630).
+
+**A imagem do preview precisa ser JPEG ou PNG, nunca WebP.** O WhatsApp não processa `og:image` em WebP — ao invés de mostrar a foto grande, ele cai num modo mínimo (só o domínio e o favicon pequeno no canto, sem imagem nenhuma). Foi exatamente isso que aconteceu quando a imagem original estava em `.webp`; trocando pra `.jpg` o preview passou a mostrar a foto normalmente. Se for trocar essa imagem no futuro, exporte em JPEG (ou PNG) e mantenha os `og:image:width`/`og:image:height` batendo com o tamanho real.
 
 ## Publicando o site
 
