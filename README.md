@@ -1,4 +1,8 @@
-# Site do Iranildo
+# Iranildo · Site pessoal
+
+`Vite` · `JavaScript` · `CSS` · `Anime.js`
+
+[Rodar localmente](#rodar-o-projeto) · [Estrutura](#onde-mexer) · [Publicação](#publicando-o-site) · [← Todos os projetos](https://github.com/Gurgel011#projetos)
 
 Página pessoal do zagueiro Iranildo Santos. Reúne história, clubes, títulos, vídeos, fotos e contato profissional.
 
